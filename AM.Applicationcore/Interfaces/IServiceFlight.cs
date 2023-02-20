@@ -8,5 +8,7 @@ namespace AM.Applicationcore.Interfaces
 {
     internal interface IServiceFlight
     {
+        IEnumerable<IGrouping<String, Flight>> DestinationGroupedFlights()
+
     }
 }

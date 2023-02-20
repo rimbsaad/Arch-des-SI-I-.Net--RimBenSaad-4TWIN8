@@ -98,17 +98,31 @@ namespace AM.ApplicationCore.Services
         }*/
 
 
-        public static IEnumerable<Traveller> SeniorTravellers(Flight flight)
+        public  IEnumerable<Traveller> SeniorTravellers(Flight flight)
         {
-            List<Traveller> Travellers = flight.Passengers.OfType<Traveller>().ToList();
-            return Travellers.OrderBy(t => t.BirthDate).Take(3);
+            //List<Traveller> Travellers = flight.Passengers.OfType<Traveller>().ToList();
+            //return Travellers.OrderBy(t => t.BirthDate).Take(3);
 
-            //return Flights.Select(f => f.Passengers.OfType<Traveller>()).OrderBy((f, keySelector ) => Func(f, keySelector);
+            return Flights.Where(f=>f.FlightId==flight.FlightId).SelectMany(f => f.Passengers.OfType<Traveller>()).OrderBy(f=>f.BirthDate).Take(3);
 
         }
 
 
+        public IEnumerable<IGrouping<String,Flight>> DestinationGroupedFlights()
+        {
+            //var query = from f in Flights
+            //            group f by f.Destination;
+            query = Flights.GroupBy(f => f.Destination);
 
+            foreach(var item in query)
+            {
+                Console.log("destination" + item.Key);
+                foreach(var f in item)
+                {
+                    Console.WriteLine("Decollage" + f.FlightDate);
+                }
+            }
+        }
 
 
         //public void GetFlights(string filterType, string filterValue)
