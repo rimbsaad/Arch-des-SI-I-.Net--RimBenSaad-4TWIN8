@@ -125,6 +125,25 @@ namespace AM.ApplicationCore.Services
         }
 
 
+
+        public Action<Plane> FlightDetailsDel { get; set; }
+        public Func<String, double> DurationAverage { get; set; }
+
+        ServiceFlight() {
+            FlightDetailsDel = plane =>
+             {
+                 var query = from p in Flights
+                             where p.plane.PlainId == plane.PlainId
+                             select p;
+
+                 foreach (var item in query)
+                 {
+                     Console.WriteLine(item.FlightDate + item.Destination);
+                 }
+             }
+
+       }
+
         //public void GetFlights(string filterType, string filterValue)
         //{
         //    switch (filterType)
