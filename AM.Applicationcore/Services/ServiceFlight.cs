@@ -2,7 +2,9 @@
 using AM.Applicationcore.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Formats.Asn1.AsnWriter;
@@ -98,31 +100,31 @@ namespace AM.ApplicationCore.Services
         }*/
 
 
-        public  IEnumerable<Traveller> SeniorTravellers(Flight flight)
-        {
-            //List<Traveller> Travellers = flight.Passengers.OfType<Traveller>().ToList();
-            //return Travellers.OrderBy(t => t.BirthDate).Take(3);
+        //public  IEnumerable<Traveller> SeniorTravellers(Flight flight)
+        //{
+        //    List<Traveller> Travellers = flight.Passengers.OfType<Traveller>().ToList();
+        //    return Travellers.OrderBy(t => t.BirthDate).Take(3);
 
-            return Flights.Where(f=>f.FlightId==flight.FlightId).SelectMany(f => f.Passengers.OfType<Traveller>()).OrderBy(f=>f.BirthDate).Take(3);
+            //return Flights.Where(f=>f.FlightId==flight.FlightId).SelectMany(f => f.Passengers.OfType<Traveller>()).OrderBy(f=>f.BirthDate).Take(3);
 
-        }
+        //}
 
 
-        public IEnumerable<IGrouping<String,Flight>> DestinationGroupedFlights()
-        {
-            //var query = from f in Flights
-            //            group f by f.Destination;
-            query = Flights.GroupBy(f => f.Destination);
+        //public IEnumerable<IGrouping<String, Flight>> DestinationGroupedFlights()
+        //{
+        //    //var query = from f in Flights
+        //    //            group f by f.Destination;
+        //    var query = Flights.GroupBy(f => f.Destination);
 
-            foreach(var item in query)
-            {
-                Console.log("destination" + item.Key);
-                foreach(var f in item)
-                {
-                    Console.WriteLine("Decollage" + f.FlightDate);
-                }
-            }
-        }
+        //    foreach(var item in query)
+        //    {
+        //        Console.WriteLine("destination" + item.Key);
+        //        foreach(var f in item)
+        //        {
+        //            Console.WriteLine("Decollage" + f.FlightDate);
+        //        }
+        //    }
+        //}
 
 
 
@@ -133,14 +135,14 @@ namespace AM.ApplicationCore.Services
             FlightDetailsDel = plane =>
              {
                  var query = from p in Flights
-                             where p.plane.PlainId == plane.PlainId
+                             where p.plane.PlaneId == plane.PlaneId
                              select p;
 
                  foreach (var item in query)
                  {
                      Console.WriteLine(item.FlightDate + item.Destination);
                  }
-             }
+             };
 
        }
 
@@ -216,6 +218,6 @@ namespace AM.ApplicationCore.Services
         //    }
 
         //}
-
+       
     }
 }

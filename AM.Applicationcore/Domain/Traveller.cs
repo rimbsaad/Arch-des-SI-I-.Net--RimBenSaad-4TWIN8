@@ -14,9 +14,9 @@ namespace AM.Applicationcore.Domain
         {
             Console.WriteLine(" I am a passenger I am a traveller ");
         }
-        public override string ToString()
-        {
-            return $"FirstName: {FirstName},LastName: {LastName},BirthDate : {BirthDate},PassportNumber : {PassportNumber}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"FirstName: {FirstName},LastName: {LastName},BirthDate : {BirthDate},PassportNumber : {PassportNumber}";
+        //}
     }
 }

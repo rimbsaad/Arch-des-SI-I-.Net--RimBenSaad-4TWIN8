@@ -29,13 +29,17 @@ namespace AM.Applicationcore.Domain
 
         public int Capacity { get; set; }
         public  DateTime ManufactureDate { get; set; }
-        public int PlainId { get; set; }
+        public int PlaneId { get; set; }
         public planeType PalneType { get; set; }
 
-        IList<Flight> Flights { get; set;}
+        public virtual IList<Flight> Flights { get; set;}
+
+
+        public virtual IList<Seat> Seats { get; set; }
+
         public override string ToString()
         {
-            return $"{Capacity},{ManufactureDate}, {PlainId}";
+            return $"{Capacity},{ManufactureDate}, {PlaneId}";
         }
 
         

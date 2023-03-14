@@ -18,9 +18,9 @@ namespace AM.Applicationcore.Domain
 
         public int FlightStatus { get; set;}
 
-        public Plane plane { get; set; }    
+        public virtual Plane plane { get; set; }    
 
-        public IList<Passenger> Passengers { get; set;}
+        public virtual  IList<Ticket> Tickets { get; set;}
 
         public override string ToString()
         {
