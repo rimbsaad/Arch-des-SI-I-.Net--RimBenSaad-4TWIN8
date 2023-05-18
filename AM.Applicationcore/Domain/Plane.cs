@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -26,12 +28,13 @@ namespace AM.Applicationcore.Domain
             ManufactureDate = manufactureDate;
             PalneType = palneType;
         }*/
-
+        [Range(0, int.MaxValue)]
         public int Capacity { get; set; }
         public  DateTime ManufactureDate { get; set; }
         public int PlaneId { get; set; }
-        public planeType PalneType { get; set; }
-
+        public planeType PlaneType { get; set; }
+        [NotMapped]
+        public string? Information { get { return ManufactureDate + " " + Capacity + " " + PlaneId; } }
         public virtual IList<Flight> Flights { get; set;}
 
 

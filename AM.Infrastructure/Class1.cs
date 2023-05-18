@@ -45,9 +45,9 @@ namespace AM.Infrastructure
             // discriminator (une seule table mére) 
             //modelBuilder.Entity<Passenger>().HasDiscriminator<int>("IsTraveller").HasValue<Passenger>(2).HasValue<Traveller>(1).HasValue<Staff>(20);
             // (chaque fils a un table)
-            modelBuilder.Entity<Passenger>().ToTable("Passenger");
-            modelBuilder.Entity<Staff>().ToTable("Staff");
-            modelBuilder.Entity<Traveller>().ToTable("Traveller");
+            //modelBuilder.Entity<Passenger>().ToTable("Passenger");
+            //modelBuilder.Entity<Staff>().ToTable("Staff");
+            //modelBuilder.Entity<Traveller>().ToTable("Traveller");
 
            // modelBuilder.Entity<Ticket>().HasKey(p=> new {p.FlightFk, p.PassengerFk});
 

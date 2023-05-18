@@ -1,5 +1,6 @@
 ﻿using AM.Applicationcore.Domain;
 using AM.Applicationcore.Interfaces;
+using AM.ApplicationCore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +12,43 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace AM.ApplicationCore.Services
 {
-    public class ServiceFlight : IServiceFlight
+    public class ServiceFlight : Service<Flight>,IServiceFlight
     {
-        public List<Flight> Flights { get; set; } = new List<Flight>();
+
+        private readonly IUnitOfWork uow;
+
+        public ServiceFlight(IUnitOfWork uow) : base(uow) { }
+        public void Add(Flight f)
+        {
+            // genericRepository.Add(f);
+            uow.Repository<Flight>().Add(f);
+        }
+
+       
+        public IEnumerable<Flight> SortFlights()
+        {
+            return GetAll().OrderByDescending(f => f.FlightDate);
+        }
+        public IList<Flight> GetFlightsByDepartureDate(DateTime? departureDate)
+        {
+            // Logic to retrieve flights based on the departureDate parameter
+            // You can customize this logic based on your data access strategy
+
+            if (departureDate.HasValue)
+            {
+                // Filter flights by departure date
+                return GetAll().Where(f => f.FlightDate == departureDate.Value.Date).ToList();
+            }
+            else
+            {
+                // Return all flights if no departure date is specified
+                return GetAll().ToList();
+            }
+        }
+
+
+
+        //public List<Flight> Flights { get; set; } = new List<Flight>();
 
         /*List<DateTime> GetFlightDates(string destination)
         {
@@ -105,7 +140,7 @@ namespace AM.ApplicationCore.Services
         //    List<Traveller> Travellers = flight.Passengers.OfType<Traveller>().ToList();
         //    return Travellers.OrderBy(t => t.BirthDate).Take(3);
 
-            //return Flights.Where(f=>f.FlightId==flight.FlightId).SelectMany(f => f.Passengers.OfType<Traveller>()).OrderBy(f=>f.BirthDate).Take(3);
+        //return Flights.Where(f=>f.FlightId==flight.FlightId).SelectMany(f => f.Passengers.OfType<Traveller>()).OrderBy(f=>f.BirthDate).Take(3);
 
         //}
 
@@ -128,23 +163,23 @@ namespace AM.ApplicationCore.Services
 
 
 
-        public Action<Plane> FlightDetailsDel { get; set; }
-        public Func<String, double> DurationAverage { get; set; }
+        // public Action<Plane> FlightDetailsDel { get; set; }
+        // public Func<String, double> DurationAverage { get; set; }
 
-        ServiceFlight() {
-            FlightDetailsDel = plane =>
-             {
-                 var query = from p in Flights
-                             where p.plane.PlaneId == plane.PlaneId
-                             select p;
+        // ServiceFlight() {
+        //     FlightDetailsDel = plane =>
+        //      {
+        //          var query = from p in Flights
+        //                      where p.plane.PlaneId == plane.PlaneId
+        //                      select p;
 
-                 foreach (var item in query)
-                 {
-                     Console.WriteLine(item.FlightDate + item.Destination);
-                 }
-             };
+        //          foreach (var item in query)
+        //          {
+        //              Console.WriteLine(item.FlightDate + item.Destination);
+        //          }
+        //      };
 
-       }
+        //}
 
         //public void GetFlights(string filterType, string filterValue)
         //{
@@ -218,6 +253,6 @@ namespace AM.ApplicationCore.Services
         //    }
 
         //}
-       
+
     }
 }

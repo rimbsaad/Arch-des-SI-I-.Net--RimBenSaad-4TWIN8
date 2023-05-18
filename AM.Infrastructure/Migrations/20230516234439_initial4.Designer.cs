@@ -4,6 +4,7 @@ using AM.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AM.Infrastructure.Migrations
 {
     [DbContext(typeof(AmContext))]
-    partial class AmContextModelSnapshot : ModelSnapshot
+    [Migration("20230516234439_initial4")]
+    partial class initial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,11 +57,6 @@ namespace AM.Infrastructure.Migrations
 
                     b.Property<int>("FlightStatus")
                         .HasColumnType("int");
-
-                    b.Property<string>("Pilote")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar");
 
                     b.Property<int>("PlaneId")
                         .HasColumnType("int");
@@ -122,7 +120,7 @@ namespace AM.Infrastructure.Migrations
                     b.Property<DateTime>("ManufactureDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("PlaneType")
+                    b.Property<int>("PalneType")
                         .HasColumnType("int");
 
                     b.HasKey("PlaneId");
@@ -276,13 +274,13 @@ namespace AM.Infrastructure.Migrations
 
             modelBuilder.Entity("AM.Applicationcore.Domain.Flight", b =>
                 {
-                    b.HasOne("AM.Applicationcore.Domain.Plane", "Plane")
+                    b.HasOne("AM.Applicationcore.Domain.Plane", "plane")
                         .WithMany("Flights")
                         .HasForeignKey("PlaneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Plane");
+                    b.Navigation("plane");
                 });
 
             modelBuilder.Entity("AM.Applicationcore.Domain.Passenger", b =>
